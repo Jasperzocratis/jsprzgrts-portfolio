@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jasper Kim J. Sale | Frontend Web Developer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .tech-carousel {
+      margin-top: 1.25rem;
+      background: linear-gradient(135deg, #f9fafb, #eef2ff);
+      border-radius: 1.25rem;
+      padding: 1.25rem 1rem;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .tech-carousel {
+      background: #374151;
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    [data-theme="dark"] .tech-carousel__fade--left {
+      left: 0;
+      background: linear-gradient(to right, #374151, rgba(55, 65, 81, 0));
+    }
+
+    [data-theme="dark"] .tech-carousel__fade--right {
+      right: 0;
+      background: linear-gradient(to left, #374151, rgba(55, 65, 81, 0));
+    }
+
+    .tech-carousel__label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tech-carousel__viewbox {
+      position: relative;
+      overflow: hidden;
+      padding-block: 0.35rem;
+    }
+
+    .tech-carousel__track {
+      display: flex;
+      width: max-content;
+      animation: tech-scroll 26s linear infinite;
+    }
+
+    .tech-carousel__track--paused {
+      animation-play-state: paused;
+    }
+
+    .tech-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.95rem;
+      margin-right: 0.75rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #0f172a;
+      white-space: nowrap;
+      cursor: pointer;
+      position: relative;
+      transform-origin: center;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .tech-badge__icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      overflow: hidden;
+    }
+
+    .tech-badge__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .tech-badge__label {
+      letter-spacing: 0.02em;
+    }
+
+    .tech-badge:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      border-color: rgba(79, 70, 229, 0.7);
+      background: #ffffff;
+    }
+
+    .tech-carousel__fade {
+      position: absolute;
+      inset-block: 0;
+      width: 40px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .tech-carousel__fade--left {
+      left: 0;
+      background: linear-gradient(to right, #eef2ff, rgba(238, 242, 255, 0));
+    }
+
+    .tech-carousel__fade--right {
+      right: 0;
+      background: linear-gradient(to left, #eef2ff, rgba(238, 242, 255, 0));
+    }
+
+    @keyframes tech-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .tech-tooltip {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translateY(6px);
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.35rem 0.7rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.28);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      transition:
+        opacity 0.16s ease-out,
+        transform 0.16s ease-out;
+      z-index: 40;
+    }
+
+    .tech-tooltip::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border-left: 1px solid rgba(148, 163, 184, 0.6);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 4px 8px rgba(15, 23, 42, 0.12);
+      transform-origin: center;
+      rotate: 45deg;
+    }
+
+    .tech-tooltip--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card__icon-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 999px;
+      display: block;
+    }
+
+    .project-card__header-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge.badge--completed {
+      background-color: #dcfce7;
+      color: #166534;
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .badge.badge--local {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      .tech-carousel {
+        padding-inline: 0.75rem;
+        border-radius: 0.9rem;
+      }
+
+      .tech-badge {
+        padding-inline: 0.65rem;
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tech-carousel {
+        padding-inline: 0.85rem;
+        border-radius: 1rem;
+      }
+
+      .tech-badge {
+        padding-inline: 0.8rem;
+        font-size: 0.78rem;
+      }
+    }
+
+    /* AI Chat Widget */
+    .ai-chat {
+      position: fixed;
+      inset-inline-end: 1.5rem;
+      inset-block-end: 1.5rem;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    }
+
+    .ai-chat__toggle {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a1a;
+      color: #ffffff;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      position: relative;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .ai-chat__toggle:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.45);
+    }
+
+    [data-theme="dark"] .ai-chat__toggle {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #3a3939;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+      cursor: pointer;
+      position: relative;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    [data-theme="dark"] .ai-chat__toggle:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 24px 55px rgba(15, 23, 42, 0.45);
+    }
+
+    .ai-chat__toggle:active {
+      transform: scale(0.96);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.4);
+    }
+
+    .ai-chat--open .ai-chat__toggle {
+      transform: scale(1.06);
+      box-shadow: 0 26px 60px rgba(15, 23, 42, 0.55);
+    }
+
+    .ai-chat__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ai-chat__toggle svg {
+      display: block;
+    }
+
+    .ai-chat__toggle .ai-chat__icon {
+      width: 22px;
+      height: 22px;
+      position: relative;
+    }
+
+    .ai-chat__toggle-svg {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      transform-origin: 50% 50%;
+      transition:
+        transform 0.35s ease,
+        opacity 0.25s ease;
+    }
+
+    .ai-chat__toggle-svg--phone {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.7);
+    }
+
+    .ai-chat--open .ai-chat__toggle-svg--chat {
+      opacity: 0;
+      transform: rotate(180deg) scale(0.7);
+    }
+
+    .ai-chat--open .ai-chat__toggle-svg--phone {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    .ai-chat__badge {
+      position: absolute;
+      inset-block-start: 0.1rem;
+      inset-inline-end: 0.1rem;
+      min-width: 1.05rem;
+      height: 1.05rem;
+      padding-inline: 0.25rem;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #111827;
+      font-size: 0.65rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.85);
+    }
+
+    .ai-chat__popup {
+      width: 22rem;
+      max-width: min(22rem, 100vw - 2.5rem);
+      max-height: 26rem;
+      border-radius: 1.25rem;
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    .ai-chat--open .ai-chat__popup {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ai-chat__header {
+      padding: 0.9rem 1rem;
+      background: #000000;
+      border-bottom: 1px solid rgba(0, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    [data-theme="dark"] .ai-chat__header {
+      padding: 0.9rem 1rem;
+      background: #374151;
+      border-bottom: 1px solid rgba(0, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .ai-chat__title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ai-chat__title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .ai-chat__subtitle {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.72);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ai-chat__close {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      padding: 0.2rem;
+      border-radius: 999px;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .ai-chat__close:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .ai-chat__body {
+      padding: 0.85rem 1rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      background: #ffffff;
+    }
+
+    .ai-chat__quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.15rem;
+    }
+
+    .ai-chat__chip {
+      border-radius: 999px;
+      border: 1px solid rgba(39, 39, 42, 1);
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.72rem;
+      padding: 0.28rem 0.65rem;
+      cursor: pointer;
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .ai-chat__chip:hover {
+      background: #111827;
+      border-color: #e5e5e5;
+      transform: translateY(-1px);
+    }
+
+    .ai-chat__messages {
+      margin-top: 0.3rem;
+      padding: 0.75rem 0.7rem;
+      border-radius: 0.9rem;
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 1);
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-height: 9.5rem;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .ai-chat__message {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+
+    .ai-chat__message--bot .ai-chat__bubble {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid rgba(229, 231, 235, 1);
+      border-radius: 0.85rem;
+      border-bottom-left-radius: 0.15rem;
+    }
+
+    .ai-chat__message--user {
+      justify-content: flex-end;
+    }
+
+    .ai-chat__message--user .ai-chat__bubble {
+      background: #111827;
+      color: #ffffff;
+      border-radius: 0.85rem;
+      border-bottom-right-radius: 0.15rem;
+    }
+
+    .ai-chat__avatar {
+      width: 2.125rem;
+      height: 2.125rem;
+      border-radius: 999px;
+      background: transparent;
+      overflow: hidden;
+      border: 1px solid rgba(229, 231, 235, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #111827;
+      flex-shrink: 0;
+    }
+
+    .ai-chat__avatar--header {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .ai-chat__avatar--msg {
+      width: 2.125rem;
+      height: 2.125rem;
+    }
+
+    .ai-chat__avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ai-chat__status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+    }
+
+    .ai-chat__bubble {
+      padding: 0.4rem 0.6rem;
+      max-width: 80%;
+    }
+
+    .ai-chat__footer {
+      border-top: 1px solid rgba(229, 231, 235, 1);
+      background: #ffffff;
+      padding: 0.5rem 0.75rem 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .ai-chat__input-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .ai-chat__input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(229, 231, 235, 1);
+      background: rgba(243, 244, 246, 1);
+      color: #111827;
+      font-size: 0.8rem;
+      padding: 0.45rem 2.1rem 0.45rem 0.9rem;
+      outline: none;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .ai-chat__input::placeholder {
+      color: #9ca3af;
+    }
+
+    .ai-chat__input:focus {
+      border-color: #111827;
+      box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.35);
+      background: #ffffff;
+    }
+
+    .ai-chat__send {
+      position: absolute;
+      inset-inline-end: 0.25rem;
+      inset-block: 0;
+      margin-block: auto;
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(229, 231, 235, 1);
+      background: rgba(243, 244, 246, 1);
+      color: #6b7280;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .ai-chat__send:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+      background: rgba(229, 231, 235, 1);
+    }
+
+    .ai-chat__send:active {
+      transform: scale(0.95);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    }
+
+    @media (max-width: 640px) {
+      .ai-chat {
+        inset-inline-end: 1rem;
+        inset-block-end: 1rem;
+      }
+
+      .ai-chat__popup {
+        width: min(22rem, calc(100vw - 2rem));
+      }
+    }
+
+    @media (max-width: 360px) {
+      .ai-chat {
+        inset-inline-end: 0.75rem;
+        inset-block-end: 0.75rem;
+      }
+
+      .ai-chat__popup {
+        width: calc(100vw - 1.5rem);
+        max-width: none;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <a href="#" class="navbar__brand">jsprzgrts.dev</a>
+    <nav class="navbar__nav" id="primaryNavigation">
+      <div class="navbar__nav-header">
+        <span class="navbar__nav-brand">jsprzgrts.dev</span>
+        <button type="button" class="navbar__nav-close" id="menuClose" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <a href="#experience" class="navbar__link">Experience</a>
+      <a href="#projects" class="navbar__link">Projects</a>
+      <a href="#contact" class="navbar__link">Contact</a>
+      <button class="navbar__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </nav>
+    <button class="navbar__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNavigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <!-- Left sidebar: Profile, About Me, My Stack (single container) -->
+      <aside class="sidebar" aria-label="Profile and skills">
+        <!-- 1. Profile Card -->
+        <section class="card profile-card" aria-label="Profile">
+          <div class="profile-card__avatar-wrap">
+            <img
+              id="profileAvatar"
+              src="asset/img/me.png"
+              alt="Jasper Kim J. Sale"
+              class="profile-card__avatar"
+              width="120"
+              height="120">
+          </div>
+          <h1 class="profile-card__name">
+            Jasper Kim J. Sale
+            <img src="asset/img/logos/badge.png" alt="Verified" class="profile-card__verified" width="20" height="20">
+          </h1>
+          <p class="profile-card__location">@ Panabo City, Davao del Norte, Philippines</p>
+          <span class="profile-card__badge">Frontend Developer</span>
+          <div class="profile-card__actions">
+            <button type="button" class="btn btn--primary" id="callButton">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              Make a Call
+            </button>
+            <div class="profile-card__secondary">
+              <button type="button" class="btn btn--secondary" id="emailButton">
+                <img src="asset/img/logos/gmail.png" alt="Gmail" width="16" height="16" style="margin-right:8px;vertical-align:middle;">
+                Email
+              </button>
+              <button type="button" class="btn btn--secondary" id="facebookButton">
+                <img src="asset/img/logos/facebook.png" alt="Facebook" width="16" height="16" style="margin-right:8px;vertical-align:middle;">
+                Facebook
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. About Me -->
+        <section class="card about-card">
+          <h2 class="card__title">ABOUT ME</h2>
+          <div class="about-card__content">
+            <p>I am a fourth-year Bachelor of Science in Information Technology (BSIT) student at Davao del Norte State College, currently preparing for graduation. I focus on web design and front-end development, creating modern, responsive, and user-friendly interfaces that provide clear and engaging user experiences.</p>
+            <p>I work with <strong>HTML</strong>, <strong>CSS</strong>, and <strong>JavaScript</strong>, and use frameworks such as <strong>Bootstrap</strong> and <strong>Vue.js</strong> to build responsive layouts and interactive components. I enjoy designing clean, well-structured interfaces that balance visual design with functionality across different devices and screen sizes.</p>
+          </div>
+        </section>
+
+        <!-- 3. My Stack -->
+        <section class="card tech-card">
+          <h2 class="card__title">MY STACK</h2>
+          <div class="tech-carousel" id="techCarousel">
+            <div class="tech-carousel__label">Preferred tools & technologies</div>
+            <div class="tech-carousel__viewbox">
+              <div class="tech-carousel__track" id="techCarouselTrack">
+                <!-- First sequence -->
+                <button class="tech-badge" data-tech="Vue.js" data-description="Progressive JavaScript framework for building UI.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/vue.png" alt="Vue.js logo">
+                  </span>
+                  <span class="tech-badge__label">Vue.js</span>
+                </button>
+                <button class="tech-badge" data-tech="Bootstrap" data-description="Popular CSS framework for responsive design.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/bootstrap.png" alt="Bootstrap logo">
+                  </span>
+                  <span class="tech-badge__label">Bootstrap</span>
+                </button>
+                <button class="tech-badge" data-tech="Vanilla JS" data-description="Lightweight JavaScript without additional frameworks.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/vanillajs.png" alt="Vanilla JS logo">
+                  </span>
+                  <span class="tech-badge__label">Vanilla JS</span>
+                </button>
+                <button class="tech-badge" data-tech="JavaScript" data-description="Core language for interactive web applications.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/js.png" alt="JavaScript logo">
+                  </span>
+                  <span class="tech-badge__label">JavaScript</span>
+                </button>
+                <button class="tech-badge" data-tech="Python" data-description="Versatile language for scripting, data, and backend.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/python.png" alt="Python logo">
+                  </span>
+                  <span class="tech-badge__label">Python</span>
+                </button>
+                <button class="tech-badge" data-tech="REST API" data-description="HTTP-based API design for client–server communication.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/restapi.png" alt="REST API logo">
+                  </span>
+                  <span class="tech-badge__label">REST API</span>
+                </button>
+                <button class="tech-badge" data-tech="PHP" data-description="Server-side scripting language for web development.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/php.png" alt="PHP logo">
+                  </span>
+                  <span class="tech-badge__label">PHP</span>
+                </button>
+                <button class="tech-badge" data-tech="GitHub" data-description="Platform for version control and collaboration.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/github.png" alt="GitHub logo">
+                  </span>
+                  <span class="tech-badge__label">GitHub</span>
+                </button>
+                <button class="tech-badge" data-tech="XAMPP" data-description="Local development environment for PHP and MySQL.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/xampp.png" alt="XAMPP logo">
+                  </span>
+                  <span class="tech-badge__label">XAMPP</span>
+                </button>
+
+                <!-- Duplicate sequence for seamless loop -->
+                <button class="tech-badge" data-tech="Vue.js" data-description="Progressive JavaScript framework for building UI.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/vue.png" alt="Vue.js logo">
+                  </span>
+                  <span class="tech-badge__label">Vue.js</span>
+                </button>
+                <button class="tech-badge" data-tech="Bootstrap" data-description="Popular CSS framework for responsive design.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/bootstrap.png" alt="Bootstrap logo">
+                  </span>
+                  <span class="tech-badge__label">Bootstrap</span>
+                </button>
+                <button class="tech-badge" data-tech="Vanilla JS" data-description="Lightweight JavaScript without additional frameworks.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/vanillajs.png" alt="Vanilla JS logo">
+                  </span>
+                  <span class="tech-badge__label">Vanilla JS</span>
+                </button>
+                <button class="tech-badge" data-tech="JavaScript" data-description="Core language for interactive web applications.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/js.png" alt="JavaScript logo">
+                  </span>
+                  <span class="tech-badge__label">JavaScript</span>
+                </button>
+                <button class="tech-badge" data-tech="Python" data-description="Versatile language for scripting, data, and backend.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/python.png" alt="Python logo">
+                  </span>
+                  <span class="tech-badge__label">Python</span>
+                </button>
+                <button class="tech-badge" data-tech="REST API" data-description="HTTP-based API design for client–server communication.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/restapi.png" alt="REST API logo">
+                  </span>
+                  <span class="tech-badge__label">REST API</span>
+                </button>
+                <button class="tech-badge" data-tech="PHP" data-description="Server-side scripting language for web development.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/php.png" alt="PHP logo">
+                  </span>
+                  <span class="tech-badge__label">PHP</span>
+                </button>
+                <button class="tech-badge" data-tech="GitHub" data-description="Platform for version control and collaboration.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/github.png" alt="GitHub logo">
+                  </span>
+                  <span class="tech-badge__label">GitHub</span>
+                </button>
+                <button class="tech-badge" data-tech="XAMPP" data-description="Local development environment for PHP and MySQL.">
+                  <span class="tech-badge__icon">
+                    <img src="asset/img/logos/xampp.png" alt="XAMPP logo">
+                  </span>
+                  <span class="tech-badge__label">XAMPP</span>
+                </button>
+              </div>
+              <div class="tech-carousel__fade tech-carousel__fade--left"></div>
+              <div class="tech-carousel__fade tech-carousel__fade--right"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Chart cards (dashboard-style) -->
+        <section class="card chart-card" aria-label="Projects status">
+          <div class="chart-card__head">
+            <div>
+              <h2 class="chart-card__title">Projects status</h2>
+              <p class="chart-card__subtitle">2 completed · 1 ongoing</p>
+            </div>
+            <span class="chart-card__value" id="chartOrdersTotal">3</span>
+          </div>
+          <div class="chart-card__bar-wrap">
+            <div class="chart-bar" data-label="2022" data-value="1">
+              <span class="chart-bar__tooltip">2022: 1 project (completed)</span>
+              <span class="chart-bar__segment chart-bar__segment--completed" style="--h: 50%"></span>
+              <span class="chart-bar__segment chart-bar__segment--pending" style="--h: 0%"></span>
+            </div>
+            <div class="chart-bar" data-label="2023" data-value="0">
+              <span class="chart-bar__tooltip">2023: 0 projects</span>
+              <span class="chart-bar__segment chart-bar__segment--completed" style="--h: 8%"></span>
+              <span class="chart-bar__segment chart-bar__segment--pending" style="--h: 0%"></span>
+            </div>
+            <div class="chart-bar" data-label="2024" data-value="1">
+              <span class="chart-bar__tooltip">2024: 0 projects</span>
+              <span class="chart-bar__segment chart-bar__segment--completed" style="--h: 8%"></span>
+              <span class="chart-bar__segment chart-bar__segment--pending" style="--h: 0%"></span>
+            </div>
+            <div class="chart-bar" data-label="2025" data-value="0">
+              <span class="chart-bar__tooltip">2025: 1 projects</span>
+              <span class="chart-bar__segment chart-bar__segment--completed" style="--h: 70%"></span>
+              <span class="chart-bar__segment chart-bar__segment--pending" style="--h: 0%"></span>
+            </div>
+            <div class="chart-bar" data-label="2026" data-value="1">
+              <span class="chart-bar__tooltip">2026: 1 project (ongoing)</span>
+              <span class="chart-bar__segment chart-bar__segment--completed" style="--h: 0%"></span>
+              <span class="chart-bar__segment chart-bar__segment--pending" style="--h: 60%"></span>
+            </div>
+          </div>
+          <div class="chart-card__legend">
+            <span class="chart-legend"><i class="chart-legend__swatch chart-legend__swatch--completed"></i> Completed <em>67%</em></span>
+            <span class="chart-legend"><i class="chart-legend__swatch chart-legend__swatch--pending"></i> In progress <em>33%</em></span>
+          </div>
+        </section>
+
+        <section class="card chart-card chart-card--donut" aria-label="Project focus">
+          <div class="chart-card__head">
+            <div>
+              <h2 class="chart-card__title">Project focus</h2>
+              <p class="chart-card__subtitle">By category</p>
+            </div>
+          </div>
+          <div class="chart-donut-wrap">
+            <div class="chart-donut" id="chartDonut">
+              <svg viewBox="0 0 100 100" class="chart-donut__svg" aria-hidden="true">
+                <circle class="chart-donut__segment" data-label="Web applications" data-pct="72" cx="50" cy="50" r="40" fill="none" stroke="#2563eb" stroke-width="16" stroke-dasharray="181 251" stroke-dashoffset="0" />
+                <circle class="chart-donut__segment" data-label="UI/UX & design" data-pct="18" cx="50" cy="50" r="40" fill="none" stroke="#7dd3fc" stroke-width="16" stroke-dasharray="45 251" stroke-dashoffset="-181" />
+                <circle class="chart-donut__segment" data-label="Portfolios & systems" data-pct="10" cx="50" cy="50" r="40" fill="none" stroke="#0e7490" stroke-width="16" stroke-dasharray="25 251" stroke-dashoffset="-226" />
+              </svg>
+              <span class="chart-donut__center" id="chartDonutCenter">72%</span>
+            </div>
+            <div class="chart-donut__tooltip" id="chartDonutTooltip">Web applications: 72%</div>
+          </div>
+          <div class="chart-card__legend">
+            <span class="chart-legend"><i class="chart-legend__swatch chart-legend__swatch--d1"></i> Web applications <em>72%</em></span>
+            <span class="chart-legend"><i class="chart-legend__swatch chart-legend__swatch--d2"></i> UI/UX & design <em>18%</em></span>
+            <span class="chart-legend"><i class="chart-legend__swatch chart-legend__swatch--d3"></i> Portfolios & systems <em>10%</em></span>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right column: Experience, What I Build, Projects, etc. (single container) -->
+      <div class="content">
+        <!-- Experience -->
+        <section class="card timeline-card" id="experience" aria-label="Experience">
+          <h2 class="card__title">EXPERIENCE</h2>
+          <ul class="timeline">
+            <li class="timeline__item">
+              <div class="timeline__marker"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Programmer OJT</h3>
+                <p class="timeline__meta">Municipality of Carmen</p>
+                <span class="timeline__year">2026</span>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <div class="timeline__marker"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Capstone Project Leader</h3>
+                <p class="timeline__meta">Davao del Norte State College</p>
+                <span class="timeline__year">2026</span>
+              </div>
+            </li>
+            <li class="timeline__item">
+              <div class="timeline__marker"></div>
+              <div class="timeline__content">
+                <h3 class="timeline__title">Figma Designer</h3>
+                <p class="timeline__meta">Panabo City, Davao del Norte</p>
+                <span class="timeline__year">2022</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- What I Build -->
+        <section class="card build-section">
+          <h2 class="card__title">WHAT I BUILD</h2>
+          <div class="build-grid">
+            <article class="card build-card">
+              <div class="build-card__icon build-card__icon--web">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+              <h3 class="build-card__title">Web Applications</h3>
+              <p class="build-card__desc">Flexible and responsive web systems designed using Vue.js, Bootstrap, PHP, and Tailwind CSS.</p>
+            </article>
+            <article class="card build-card">
+              <div class="build-card__icon build-card__icon--figma">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2H9a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3"></path><path d="M12 2h3a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-3"></path><path d="M12 10H9a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h3"></path><path d="M12 10h3a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-3"></path><path d="M12 10v4"></path></svg>
+              </div>
+              <h3 class="build-card__title">Figma Designer</h3>
+              <p class="build-card__desc">UI/UX design, prototypes, and design systems with clean layouts and consistent components.</p>
+            </article>
+            <article class="card build-card">
+              <div class="build-card__icon build-card__icon--system">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </div>
+              <h3 class="build-card__title">System Design</h3>
+              <p class="build-card__desc">Smart workflow solutions with automation and seamless system integrations.</p>
+            </article>
+            <article class="card build-card">
+              <div class="build-card__icon build-card__icon--portfolio">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              </div>
+              <h3 class="build-card__title">Portfolio Developing</h3>
+              <p class="build-card__desc">Personal and professional portfolio sites that showcase work with modern, responsive layouts.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="card projects-section" id="projects">
+          <h2 class="card__title">PROJECTS</h2>
+          <div class="projects-list">
+            <article class="project-card">
+              <div class="project-card__icon">
+                <img src="asset/img/projects/project1.jpg" alt="IrrigTrack project preview" class="project-card__icon-image">
+              </div>
+              <div class="project-card__body">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">IrrigTrack: An Asset Inventory Management System</h3>
+                  <div class="project-card__header-meta">
+                    <a href="http://146.190.87.255/login" target="_blank" rel="noopener" class="project-card__link" aria-label="Visit Librasense">
+                      <span class="project-card__domain">http://146.190.87.255/login</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                    <span class="badge badge--completed">Completed</span>
+                  </div>
+                </div>
+                <p class="project-card__desc">Management System Using Predictive Analytics For National Irrigation Administration.</p>
+                <div class="project-card__tags">
+                  <span class="tag">
+                    <img src="asset/img/logos/laravel.png" alt="Laravel" class="tag__icon">
+                    <span>Laravel</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/vue.png" alt="Vue.js" class="tag__icon">
+                    <span>Vue.js</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/pg.png" alt="Postgres SQL" class="tag__icon">
+                    <span>Postgres SQL</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article class="project-card">
+              <div class="project-card__icon">
+                <img src="asset/img/projects/project2.png" alt="IAS-LOGS project preview" class="project-card__icon-image">
+              </div>
+              <div class="project-card__body">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">IAS-LOGS AUDIT DOCUMENT SYSTEM</h3>
+                  <div class="project-card__header-meta">
+                    <span class="badge badge--completed">Completed</span>
+                    <span class="badge badge--local">Local Type</span>
+                  </div>
+                </div>
+                <p class="project-card__desc">Audit Document Logbook and Office Record Tracking System for the Office of Internal Audit Services.</p>
+                <div class="project-card__tags">
+                  <span class="tag">
+                    <img src="asset/img/logos/php.png" alt="PHP" class="tag__icon">
+                    <span>PHP</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/bootstrap.png" alt="Bootstrap" class="tag__icon">
+                    <span>Bootstrap</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/xampp.png" alt="XAMPP" class="tag__icon">
+                    <span>XAMPP</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+            <article class="project-card">
+              <div class="project-card__icon">
+                <svg class="project-card__icon-lock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="10" width="14" height="10" rx="2" ry="2"></rect>
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                  <circle cx="12" cy="15" r="1.5"></circle>
+                </svg>
+              </div>
+              <div class="project-card__body">
+                <div class="project-card__header">
+                  <h3 class="project-card__title">Inventory Management System for Supplies in the Kabahagi Program</h3>
+                  <div class="project-card__header-meta">
+                    <span class="badge badge--ongoing">Ongoing</span>
+                    <span class="badge badge--local">Local Type</span>
+                  </div>
+                </div>
+                <p class="project-card__desc">Inventory management tool for monitoring and tracking supplies under the Kabahagi Program.</p>
+                <div class="project-card__tags">
+                  <span class="tag">
+                    <img src="asset/img/logos/php.png" alt="PHP" class="tag__icon">
+                    <span>PHP</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/bootstrap.png" alt="Bootstrap" class="tag__icon">
+                    <span>Bootstrap</span>
+                  </span>
+                  <span class="tag">
+                    <img src="asset/img/logos/xampp.png" alt="XAMPP" class="tag__icon">
+                    <span>XAMPP</span>
+                  </span>
+                </div>
+              </div>
+            </article>
+          </div>
+          <button type="button" class="projects-section__see-all" id="seeAllProjectsButton">
+            See all projects
+            <svg class="projects-section__arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </section>
+
+        <!-- Certifications -->
+        <section class="card certifications-section" id="contact">
+          <h2 class="card__title">MY REECENT CERTIFICATIONS</h2>
+          <div class="certifications-grid">
+            <div class="cert-card cert-card--ncii">
+              <span class="cert-card__name">Certificate of NCII</span>
+              <span class="badge badge--ongoing">Completed</span>
+            </div>
+            <div class="cert-card cert-card--participation">
+              <span class="cert-card__name">Participation</span>
+              <span class="badge badge--ongoing">Completed</span>
+            </div>
+            <div class="cert-card cert-card--completion">
+              <span class="cert-card__name">Completion</span>
+              <span class="badge badge--ongoing">Completed</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact & Map (below Certifications, landscape) -->
+        <section class="contact-map-section contact-map-section--landscape" id="contact-map">
+          <div class="contact-map-grid">
+            <div class="card contact-card contact-map-grid__contact">
+              <h2 class="card__title">CONTACT ME</h2>
+              <div class="contact-card__content">
+                <div class="contact-card__column">
+                  <p class="contact-card__item">
+                    <strong>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:text-bottom;">
+                        <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0Z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      Location
+                    </strong><br>
+                    Panabo City, Davao del Norte, Philippines
+                  </p>
+                  <p class="contact-card__item">
+                    <strong>
+                      <img src="asset/img/logos/gmail.png" alt="Gmail" width="16" height="16" style="margin-right:6px;vertical-align:text-bottom;">
+                      Email
+                    </strong><br>
+                    <a href="mailto:jaspersale2003@gmail.com">jaspersale2003@gmail.com</a>
+                  </p>
+                  <p class="contact-card__item">
+                    <strong>
+                      <img src="asset/img/logos/facebook.png" alt="Facebook" width="16" height="16" style="margin-right:6px;vertical-align:text-bottom;">
+                      Facebook
+                    </strong><br>
+                    <a href="https://www.facebook.com/jasper.kim.sale25" target="_blank" rel="noopener">Connect with me</a>
+                  </p>
+                </div>
+                <div class="contact-card__column contact-card__column--social">
+                  <p class="contact-card__item contact-card__item--compact">
+                    <strong>
+                      <img src="asset/img/logos/github.png" alt="GitHub" width="16" height="16" style="margin-right:6px;vertical-align:text-bottom;">
+                      GitHub
+                    </strong><br>
+                    <a href="https://github.com/Jasperzocratis" target="_blank" rel="noopener">github.com/jaspersale</a>
+                  </p>
+                  <p class="contact-card__item contact-card__item--compact">
+                    <strong>
+                      <img src="asset/img/logos/linkedin.png" alt="LinkedIn" width="16" height="16" style="margin-right:6px;vertical-align:text-bottom;">
+                      LinkedIn
+                    </strong><br>
+                    <a href="https://www.linkedin.com/in/jasper-sale-412a85280" target="_blank" rel="noopener">linkedin.com/in/jaspersale</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card map-card map-card--landscape">
+              <h2 class="card__title">LOCATION</h2>
+              <div class="map-card__embed map-card__embed--landscape">
+                <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=125.66%2C7.28%2C125.72%2C7.32&layer=mapnik&marker=7.3%2C125.69" width="100%" height="100%" style="border:0;" loading="lazy" title="Map of Panabo City, Davao del Norte, Philippines"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Theme Customizer (right sidebar) -->
+  <button class="customizer-tab" type="button" id="customizerToggle" aria-label="Open theme customizer" aria-controls="themeCustomizer" aria-expanded="false">
+    <span class="customizer-tab__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.16.1a2 2 0 0 1-2 0l-.16-.1a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.16.1a2 2 0 0 1 1 1.73V12a2 2 0 0 1-1 1.73l-.16.1a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.16-.1a2 2 0 0 1 2 0l.16.1a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.16-.1a2 2 0 0 1 2 0l.16.1a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.16-.1a2 2 0 0 1-1-1.73v-.36a2 2 0 0 1 1-1.73l.16-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.16.1a2 2 0 0 1-2 0l-.16-.1a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </svg>
+    </span>
+    <span class="customizer-tab__label">CUSTOMIZE</span>
+  </button>
+
+  <div class="customizer-backdrop" id="customizerBackdrop" aria-hidden="true"></div>
+  <aside class="customizer" id="themeCustomizer" aria-label="Theme customizer" aria-hidden="true">
+    <header class="customizer__header">
+      <div>
+        <div class="customizer__title">Theme Customizer</div>
+        <div class="customizer__subtitle">Explore different styles according to your preferences.</div>
+      </div>
+      <button class="customizer__close" type="button" id="customizerClose" aria-label="Close theme customizer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <div class="customizer__body">
+      <section class="customizer__section" aria-label="Color scheme">
+        <div class="customizer__section-title">Color Scheme</div>
+        <div class="customizer__choice-grid" role="radiogroup" aria-label="Theme mode">
+          <label class="customizer__choice">
+            <input class="customizer__radio" type="radio" name="themeMode" value="light">
+            <span class="customizer__choice-card customizer__choice-card--light" aria-hidden="true"></span>
+            <span class="customizer__choice-label">Light</span>
+          </label>
+          <label class="customizer__choice">
+            <input class="customizer__radio" type="radio" name="themeMode" value="dark">
+            <span class="customizer__choice-card customizer__choice-card--dark" aria-hidden="true"></span>
+            <span class="customizer__choice-label">Dark</span>
+          </label>
+          <label class="customizer__choice">
+            <input class="customizer__radio" type="radio" name="themeMode" value="auto">
+            <span class="customizer__choice-card customizer__choice-card--auto" aria-hidden="true"></span>
+            <span class="customizer__choice-label">Auto</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="customizer__section" aria-label="Accent color">
+        <div class="customizer__section-title">Accent</div>
+        <div class="customizer__row">
+          <label class="customizer__row-label" for="accentColor">Pick accent color</label>
+          <input class="customizer__color" id="accentColor" type="color" value="#2563eb" aria-label="Accent color picker">
+        </div>
+      </section>
+
+      <section class="customizer__section" aria-label="Layout options">
+        <div class="customizer__row">
+          <div>
+            <div class="customizer__row-title">RTL</div>
+            <div class="customizer__row-subtitle">Change text direction</div>
+          </div>
+          <label class="customizer__switch">
+            <input type="checkbox" id="rtlToggle">
+            <span class="customizer__switch-ui" aria-hidden="true"></span>
+          </label>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="site-footer" aria-label="Footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">jsprzgrts.dev</div>
+
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <a href="#" class="site-footer__link">Home</a>
+        <a href="#experience" class="site-footer__link">Experience</a>
+        <a href="#projects" class="site-footer__link">Projects</a>
+        <a href="#contact" class="site-footer__link">Contact</a>
+      </nav>
+
+      <div class="site-footer__social" aria-label="Social links">
+        <a class="site-footer__social-link" href="https://github.com/Jasperzocratis" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 19 4.77 5.07 5.07 0 0 0 18.91 1S17.73.65 15 2.48a13.38 13.38 0 0 0-6 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <a class="site-footer__social-link" href="https://www.facebook.com/jasper.kim.sale25" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a class="site-footer__social-link" href="https://www.linkedin.com/in/jasper-sale-412a85280" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+      </div>
+
+      <div class="site-footer__copyright">
+        Copyright © <span id="footerYear"></span> All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- AI Chat Widget -->
+  <div class="ai-chat" id="aiChatWidget" aria-live="polite">
+    <div class="ai-chat__popup" aria-label="AI chat assistant" role="dialog">
+      <header class="ai-chat__header">
+        <div class="ai-chat__title-group">
+          <span class="ai-chat__avatar ai-chat__avatar--header">
+            <img class="ai-chat__avatar-img" src="asset/img/me.png" alt="Belly Joe" width="40" height="40">
+          </span>
+          <div>
+            <div class="ai-chat__title">Jasper Kim Sale</div>
+            <div class="ai-chat__subtitle">
+              <span class="ai-chat__status-dot" aria-hidden="true"></span>
+              Online
+            </div>
+          </div>
+        </div>
+        <button class="ai-chat__close" type="button" aria-label="Close chat" id="aiChatClose">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+      <div class="ai-chat__body">
+        <div class="ai-chat__messages" id="aiChatMessages">
+          <div class="ai-chat__message ai-chat__message--bot">
+            <span class="ai-chat__avatar ai-chat__avatar--msg">
+              <img class="ai-chat__avatar-img" src="asset/img/me.png" alt="Belly Joe" width="34" height="34">
+            </span>
+            <div class="ai-chat__bubble">
+              Hi! I'm Jasper. Ask me anything about my skills, experience, or projects!
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="ai-chat__footer" id="aiChatForm">
+        <div class="ai-chat__input-wrap">
+          <input
+            id="aiChatInput"
+            class="ai-chat__input"
+            type="text"
+            autocomplete="off"
+            placeholder="Ask about my skills, projects, or experience..." />
+          <button class="ai-chat__send" type="submit" aria-label="Send message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <button class="ai-chat__toggle" type="button" id="aiChatToggle" aria-label="Open AI assistant">
+      <span class="ai-chat__icon">
+        <svg class="ai-chat__toggle-svg ai-chat__toggle-svg--chat" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v0z"></path>
+        </svg>
+        <svg class="ai-chat__toggle-svg ai-chat__toggle-svg--phone" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+      </span>
+      <span class="ai-chat__badge" id="aiChatBadge">1</span>
+    </button>
+  </div>
+
+  <!-- Projects Modal -->
+  <div class="modal-backdrop" id="projectsModalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
+      <div class="modal__header modal__header--danger">
+        <div class="modal__title-group">
+          <span class="modal__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="12" y1="8" x2="12" y2="13"></line><circle cx="12" cy="16" r="1"></circle></svg>
+          </span>
+          <div>
+            <h2 class="modal__title" id="projectsModalTitle">Projects overview</h2>
+            <p class="modal__subtitle">Here is a quick summary of my recent work.</p>
+          </div>
+        </div>
+        <button type="button" class="modal__close" id="projectsModalClose" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <div class="modal-project">
+          <h3 class="modal-project__title">IrrigTrack: Asset Inventory Management</h3>
+          <p class="modal-project__meta">Web-based system for the National Irrigation Administration.</p>
+          <p class="modal-project__desc">Built with Laravel, Vue.js, and PostgreSQL to manage assets, generate reports, and support data‑driven decision making.</p>
+        </div>
+        <div class="modal-project">
+          <h3 class="modal-project__title">IAS‑LOGS Audit Document System</h3>
+          <p class="modal-project__meta">Audit document logbook and office record tracking system.</p>
+          <p class="modal-project__desc">Local PHP, Bootstrap, and XAMPP stack application for tracking audit records, statuses, and document flow.</p>
+        </div>
+        <div class="modal-project">
+          <h3 class="modal-project__title">Inventory Management System for Supplies in the Kabahagi Program</h3>
+          <p class="modal-project__meta">Inventory management system for Kabahagi Program supplies.</p>
+          <p class="modal-project__desc">Built with PHP, Bootstrap, and XAMPP to monitor stock levels, movements, and usage of program supplies.</p>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary modal__btn" id="projectsModalCancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call Modal -->
+  <div class="modal-backdrop" id="callModalBackdrop" aria-hidden="true">
+    <div class="modal modal--compact" role="dialog" aria-modal="true" aria-labelledby="callModalTitle">
+      <div class="modal__header modal__header--dark">
+        <div class="modal__title-group">
+          <span class="modal__icon modal__icon--circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </span>
+          <div>
+            <h2 class="modal__title" id="callModalTitle">Contact number</h2>
+            <p class="modal__subtitle">Reach me directly for project opportunities.</p>
+          </div>
+        </div>
+        <button type="button" class="modal__close" id="callModalClose" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal__body modal__body--light">
+        <div class="call-modal__content">
+          <div class="call-modal__phone">
+            <span class="call-modal__phone-label">Mobile</span>
+            <a href="#" class="call-modal__phone-number">+69 995 510 6930</a>
+          </div>
+          <p class="call-modal__note">Available 9:00 AM – 6:00 PM (Philippine time). Please leave a message if I miss your call.</p>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--secondary modal__btn" id="callModalCancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Modal -->
+  <div class="modal-backdrop" id="emailModalBackdrop" aria-hidden="true">
+    <div class="modal modal--contact" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+      <div class="modal__header modal__header--plain">
+        <button type="button" class="modal__close" id="emailModalClose" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal__body modal__body--light contact-modal__body">
+        <div class="contact-modal__icon-wrap">
+          <div class="contact-modal__icon-circle contact-modal__icon-circle--gmail">
+            <img src="asset/img/profile/pfp2.png" alt="Profile picture for email" />
+            <span class="contact-modal__badge-logo">
+              <img src="asset/img/logos/gmail.png" alt="Gmail logo" />
+            </span>
+          </div>
+        </div>
+        <h2 class="contact-modal__title" id="emailModalTitle">Email me</h2>
+        <p class="contact-modal__text">jaspersale2003@gmail.com</p>
+        <a href="https://myaccount.google.com/?hl=en&utm_source=OGB&utm_medium=act&gar=WzJd" class="btn btn--primary contact-modal__btn">Email me</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Facebook Modal -->
+  <div class="modal-backdrop" id="facebookModalBackdrop" aria-hidden="true">
+    <div class="modal modal--contact" role="dialog" aria-modal="true" aria-labelledby="facebookModalTitle">
+      <div class="modal__header modal__header--plain">
+        <button type="button" class="modal__close" id="facebookModalClose" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal__body modal__body--light contact-modal__body">
+        <div class="contact-modal__icon-wrap">
+          <div class="contact-modal__icon-circle contact-modal__icon-circle--facebook">
+            <img src="asset/img/profile/pfp1.png" alt="Profile picture for Facebook" />
+            <span class="contact-modal__badge-logo">
+              <img src="asset/img/logos/facebook.png" alt="Facebook logo" />
+            </span>
+          </div>
+        </div>
+        <h2 class="contact-modal__title" id="facebookModalTitle">Facebook</h2>
+        <p class="contact-modal__text">Jasper Kim Sale</p>
+        <a href="https://www.facebook.com/jasper.kim.sale25" target="_blank" rel="noopener" class="btn btn--primary contact-modal__btn">Open profile</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const track = document.getElementById('techCarouselTrack');
+      const container = document.getElementById('techCarousel');
+      if (!track || !container) return;
+
+      const badges = Array.from(track.querySelectorAll('.tech-badge'));
+      let tooltipEl = null;
+
+      function ensureTooltip() {
+        if (tooltipEl) return tooltipEl;
+        tooltipEl = document.createElement('div');
+        tooltipEl.className = 'tech-tooltip';
+        document.body.appendChild(tooltipEl);
+        return tooltipEl;
+      }
+
+      function showTooltip(badge) {
+        const tip = ensureTooltip();
+        const techKey = badge.getAttribute('data-tech') || '';
+        tip.textContent = techKey || 'Tech';
+        const rect = badge.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollX = window.scrollX || window.pageXOffset;
+
+        // First place roughly, then measure for perfect centering
+        tip.style.left = rect.left + scrollX + 'px';
+        tip.style.top = rect.top + scrollY + 'px';
+
+        const tipWidth = tip.offsetWidth;
+        const tipHeight = tip.offsetHeight;
+
+        const finalLeft = rect.left + rect.width / 2 - tipWidth / 2 + scrollX;
+        const finalTop = rect.top + scrollY - tipHeight - 10;
+
+        tip.style.left = `${finalLeft}px`;
+        tip.style.top = `${finalTop}px`;
+
+        requestAnimationFrame(() => {
+          tip.classList.add('tech-tooltip--visible');
+        });
+      }
+
+      function hideTooltip() {
+        if (!tooltipEl) return;
+        tooltipEl.classList.remove('tech-tooltip--visible');
+      }
+
+      container.addEventListener('mouseenter', () => {
+        track.classList.add('tech-carousel__track--paused');
+      });
+
+      container.addEventListener('mouseleave', () => {
+        track.classList.remove('tech-carousel__track--paused');
+        hideTooltip();
+      });
+
+      badges.forEach((badge) => {
+        badge.addEventListener('mouseenter', () => {
+          track.classList.add('tech-carousel__track--paused');
+          showTooltip(badge);
+        });
+        badge.addEventListener('mouseleave', () => {
+          hideTooltip();
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        if (!tooltipEl) return;
+        if (!tooltipEl.classList.contains('tech-tooltip--visible')) return;
+        hideTooltip();
+      });
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('seeAllProjectsButton');
+      const backdrop = document.getElementById('projectsModalBackdrop');
+      const closeBtn = document.getElementById('projectsModalClose');
+      const cancelBtn = document.getElementById('projectsModalCancel');
+
+      if (!openBtn || !backdrop) return;
+
+      const openModal = () => {
+        backdrop.classList.add('modal-backdrop--visible');
+        backdrop.setAttribute('aria-hidden', 'false');
+      };
+
+      const closeModal = () => {
+        backdrop.classList.remove('modal-backdrop--visible');
+        backdrop.setAttribute('aria-hidden', 'true');
+      };
+
+      openBtn.addEventListener('click', openModal);
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          closeModal();
+        }
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    })();
+
+    (function () {
+      const openBtn = document.getElementById('callButton');
+      const backdrop = document.getElementById('callModalBackdrop');
+      const closeBtn = document.getElementById('callModalClose');
+      const cancelBtn = document.getElementById('callModalCancel');
+
+      if (!openBtn || !backdrop) return;
+
+      const openModal = () => {
+        backdrop.classList.add('modal-backdrop--visible');
+        backdrop.setAttribute('aria-hidden', 'false');
+      };
+
+      const closeModal = () => {
+        backdrop.classList.remove('modal-backdrop--visible');
+        backdrop.setAttribute('aria-hidden', 'true');
+      };
+
+      openBtn.addEventListener('click', openModal);
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          closeModal();
+        }
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    })();
+
+    (function () {
+      function wireContactModal(triggerId, backdropId, closeId) {
+        const openBtn = document.getElementById(triggerId);
+        const backdrop = document.getElementById(backdropId);
+        const closeBtn = document.getElementById(closeId);
+        if (!openBtn || !backdrop) return;
+
+        const openModal = () => {
+          backdrop.classList.add('modal-backdrop--visible');
+          backdrop.setAttribute('aria-hidden', 'false');
+        };
+
+        const closeModal = () => {
+          backdrop.classList.remove('modal-backdrop--visible');
+          backdrop.setAttribute('aria-hidden', 'true');
+        };
+
+        openBtn.addEventListener('click', openModal);
+        backdrop.addEventListener('click', (e) => {
+          if (e.target === backdrop) {
+            closeModal();
+          }
+        });
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeModal();
+          }
+        });
+      }
+
+      wireContactModal('emailButton', 'emailModalBackdrop', 'emailModalClose');
+      wireContactModal('facebookButton', 'facebookModalBackdrop', 'facebookModalClose');
+    })();
+
+    (function () {
+      const root = document.getElementById('aiChatWidget');
+      if (!root) return;
+
+      const toggleBtn = document.getElementById('aiChatToggle');
+      const closeBtn = document.getElementById('aiChatClose');
+      const badge = document.getElementById('aiChatBadge');
+      const quickActions = document.getElementById('aiChatQuickActions');
+      const messagesEl = document.getElementById('aiChatMessages');
+      const form = document.getElementById('aiChatForm');
+      const input = document.getElementById('aiChatInput');
+
+      if (!toggleBtn || !messagesEl || !form || !input) return;
+
+      let isOpen = false;
+      let hasSeen = false;
+
+      function setOpen(next) {
+        isOpen = typeof next === 'boolean' ? next : !isOpen;
+        if (isOpen) {
+          root.classList.add('ai-chat--open');
+          toggleBtn.setAttribute('aria-label', 'Close AI assistant');
+          if (!hasSeen && badge) {
+            hasSeen = true;
+            badge.style.opacity = '0';
+          }
+          setTimeout(() => {
+            input.focus({ preventScroll: true });
+          }, 180);
+        } else {
+          root.classList.remove('ai-chat--open');
+          toggleBtn.setAttribute('aria-label', 'Open AI assistant');
+        }
+      }
+
+      function scrollMessagesToEnd() {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function appendMessage(text, from = 'user') {
+        if (!text.trim()) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = from === 'bot'
+          ? 'ai-chat__message ai-chat__message--bot'
+          : 'ai-chat__message ai-chat__message--user';
+
+        if (from === 'bot') {
+          const avatarWrap = document.createElement('span');
+          avatarWrap.className = 'ai-chat__avatar ai-chat__avatar--msg';
+
+          const img = document.createElement('img');
+          img.className = 'ai-chat__avatar-img';
+          img.src = 'asset/img/me.png';
+          img.alt = 'Belly Joe';
+          img.width = 34;
+          img.height = 34;
+
+          avatarWrap.appendChild(img);
+          wrapper.appendChild(avatarWrap);
+        }
+
+        const bubble = document.createElement('div');
+        bubble.className = 'ai-chat__bubble';
+        bubble.textContent = text;
+        wrapper.appendChild(bubble);
+
+        messagesEl.appendChild(wrapper);
+        scrollMessagesToEnd();
+      }
+
+      function handleTopic(topic) {
+        const mapping = {
+          Projects: 'You can scroll to the “PROJECTS” section to see highlighted work, live links, and tech used.',
+          Technologies: 'Check the “MY STACK” card to see the main tools and technologies I work with.',
+          'Hire Me': 'Interested in working together? Use the contact details below or send me an email and share your project idea.',
+          Contact: 'All of my contact links (email, Facebook, GitHub, LinkedIn) are in the CONTACT section near the bottom of the page.'
+        };
+
+        appendMessage(topic, 'user');
+        const reply = mapping[topic] || 'I can help you navigate this portfolio and highlight relevant sections.';
+        setTimeout(() => appendMessage(reply, 'bot'), 220);
+      }
+
+      toggleBtn.addEventListener('click', () => setOpen());
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => setOpen(false));
+      }
+
+      if (quickActions) {
+        quickActions.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          if (!target.matches('.ai-chat__chip')) return;
+          const topic = target.getAttribute('data-topic') || target.textContent || '';
+          handleTopic(topic.trim());
+        });
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const value = input.value.trim();
+        if (!value) return;
+        appendMessage(value, 'user');
+        input.value = '';
+
+        setTimeout(() => {
+          appendMessage(
+            'Thanks for your message. Please check the portfolio sections for full details.',
+            'bot'
+          );
+        }, 250);
+      });
+    })();
+
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
