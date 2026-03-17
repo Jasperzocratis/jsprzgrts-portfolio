@@ -676,12 +676,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__logo">
+        <span class="preloader__logo-text">jsprzgrts</span>
+      </div>
+      <p class="preloader__percent" id="preloaderPercent">0%</p>
+      <div class="preloader__bar-wrap" role="status" aria-label="Page loading">
+        <div class="preloader__bar"></div>
+      </div>
+      <p class="preloader__label">Loading...</p>
+    </div>
+  </div>
+
   <!-- NAVBAR -->
   <header class="navbar" id="navbar">
-    <a href="#" class="navbar__brand">jsprzgrts.dev</a>
+    <a href="#" class="navbar__brand">jsprzgrts.app</a>
     <nav class="navbar__nav" id="primaryNavigation">
       <div class="navbar__nav-header">
-        <span class="navbar__nav-brand">jsprzgrts.dev</span>
+        <span class="navbar__nav-brand">jsprzgrts.app</span>
         <button type="button" class="navbar__nav-close" id="menuClose" aria-label="Close menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>

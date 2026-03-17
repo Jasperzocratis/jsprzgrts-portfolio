@@ -277,4 +277,38 @@
     });
   })();
 
+  // ========== Preloader ==========
+  (function initPreloader() {
+    const preloader = document.getElementById('preloader');
+    const percentEl = document.getElementById('preloaderPercent');
+    if (!preloader) return;
+
+    window.addEventListener('load', function () {
+      // Animate percentage from 0 to 100 during the bar animation
+      if (percentEl) {
+        let start = null;
+        const duration = 1600;
+
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          const progress = Math.min(1, (timestamp - start) / duration);
+          const value = Math.round(progress * 100);
+          percentEl.textContent = value + '%';
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        }
+
+        window.requestAnimationFrame(step);
+      }
+
+      setTimeout(function () {
+        preloader.classList.add('preloader--hidden');
+        setTimeout(function () {
+          preloader.remove();
+        }, 450);
+      }, 1600);
+    });
+  })();
+
 })();
